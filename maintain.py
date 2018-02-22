@@ -9,7 +9,8 @@ import csv
 entries = []
 name_pos = 0
 country_pos = 1
-table_header = [ 'Name', 'Country']
+genre_pos = 2
+table_header = [ 'Name', 'Country', 'Genre' ]
 
 def right_menu_choice(which):
     if not which.isdigit():
@@ -46,8 +47,12 @@ def edit_entry(which):
     new_country = input("Enter new country or press return to leave unchanged: ")
     if new_country == "":
         new_country = entry[country_pos]
-            
-    entry = [new_name, new_country]
+
+    new_genre = input("Enter new genre or press return to leave unchanged: ")
+    if new_genre == "":
+        new_genre = entry[genre_pos]
+
+    entry = [new_name, new_country, new_genre]
     entries[which-1] = entry
 
   
@@ -74,14 +79,15 @@ def show_entries():
     print()
 
 def show_entry(entry, index):
-    outputstr = "{0:>3}  {1:<20}  {2:>16}"
-    print(outputstr.format(index, entry[name_pos], entry[country_pos]))
+    outputstr = "{0:>3}  {1:<20}  {2:>16}  {3:>16}"
+    print(outputstr.format(index, entry[name_pos], entry[country_pos], entry[genre_pos]))
 
 def create_entry():
     print("Enter the data for a new entry:")
     new_name = input("Enter name: ")
     new_country = input("Enter country: ")
-    entry = [new_name,new_country]
+    new_genre = input("Enter genre: ")
+    entry = [new_name,new_country,new_genre]
     entries.append(entry)
     
 def menu_choice():
