@@ -14,11 +14,13 @@ table_header = [ 'Name', 'Country', 'Genre' ]
 
 def right_menu_choice(which):
     if not which.isdigit():
-        print ("'" + which + "' needs to be the number of a phone!")
+        print ("'" + which + "' is not a valid entry number!")
+        print()
         return False
     which = int(which)
     if which < 1 or which > len(entries):
-        print ("'" + str(which) + "' needs to be the number of a phone!")
+        print ("'" + str(which) + "' is not a valid entry number!")
+        print()
         return False
     return True
     
@@ -29,6 +31,7 @@ def delete_entry(which):
 
     del entries[which-1]
     print( "Deleted entry #", which)
+    print()
 
 def edit_entry(which):
     if not right_menu_choice(which):
@@ -71,6 +74,7 @@ def load_csv():
         f.close()
 
 def show_entries():
+    os.system("clear")
     show_entry(table_header, "")
     index = 1
     for entry in entries:
@@ -79,7 +83,7 @@ def show_entries():
     print()
 
 def show_entry(entry, index):
-    outputstr = "{0:>3}  {1:<20}  {2:>16}  {3:>16}"
+    outputstr = "{0:>3}  {1:<20}  {2:<20}  {3:<20}"
     print(outputstr.format(index, entry[name_pos], entry[country_pos], entry[genre_pos]))
 
 def create_entry():
@@ -93,17 +97,19 @@ def create_entry():
 def menu_choice():
     """ List all possible options """
     print("Choose one of the following options?")
-    print("   s) Show")
-    print("   n) New")
-    print("   d) Delete")
-    print("   e) Edit")
-    print("   q) Quit")
+    print("s: show  "   , end='')
+    print("n: new  "    , end='')
+    print("d: delete  " , end='')
+    print("e: edit  "   , end='')
+    print("q: quit  ")
     chosen_option = input("Chosen option: ")    
     if chosen_option.lower() in ['n','d', 's','e', 'q']:
         return chosen_option.lower()
     else:
+        os.system("clear")
         print(chosen_option +"?")
         print("Invalid option")
+        print()
         return None
 
 
@@ -120,9 +126,13 @@ def main_loop():
             break     # jump out of while loop
         elif choice == 'n':
             create_entry()
+            os.system("clear")
+            print("Entry created")
+            print()
         elif choice == 'd':
             which = input("Which item do you want to delete? ")
             print("which is ", which)
+            os.system("clear")
             delete_entry(which)
         elif choice == 's':
             show_entries()
@@ -130,8 +140,13 @@ def main_loop():
             which = input("Which item do you want to edit? ")
             print("which is ", which)
             edit_entry(which)
+            os.system("clear")
+            print("Entry modified")
+            print()
         else:
+            os.system("clear")
             print("Invalid choice.")
+            print()
             
     save_database()
     
