@@ -14,13 +14,11 @@ table_header = [ 'Name', 'Country', 'Genre' ]
 
 def right_menu_choice(which):
     if not which.isdigit():
-        print ("'" + which + "' is not a valid entry number!")
-        print()
+        print_status("'" + which + "' is not a valid entry number!")
         return False
     which = int(which)
     if which < 1 or which > len(entries):
-        print ("'" + str(which) + "' is not a valid entry number!")
-        print()
+        print_status("'" + str(which) + "' is not a valid entry number!")
         return False
     return True
     
@@ -30,8 +28,7 @@ def delete_entry(which):
     which = int(which)
 
     del entries[which-1]
-    print( "Deleted entry #", which)
-    print()
+    print_status( "Deleted entry #" + str(which))
 
 def edit_entry(which):
     if not right_menu_choice(which):
@@ -108,10 +105,12 @@ def menu_choice():
     else:
         os.system("clear")
         print(chosen_option +"?")
-        print("Invalid option")
-        print()
+        print_status("Invalid option")
         return None
 
+def print_status(status):
+    print(status)
+    print()
 
 def main_loop():
     
@@ -127,8 +126,7 @@ def main_loop():
         elif choice == 'n':
             create_entry()
             os.system("clear")
-            print("Entry created")
-            print()
+            print_status("Entry created")
         elif choice == 'd':
             which = input("Which item do you want to delete? ")
             print("which is ", which)
@@ -141,12 +139,10 @@ def main_loop():
             print("which is ", which)
             edit_entry(which)
             os.system("clear")
-            print("Entry modified")
-            print()
+            print_status("Entry modified")
         else:
             os.system("clear")
-            print("Invalid choice.")
-            print()
+            print_status("Invalid choice.")
             
     save_database()
     
