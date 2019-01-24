@@ -41,13 +41,14 @@ def edit_entry(which):
     print(entry[name_pos])
     new_name = input("Enter new name of the band or press return to leave unchanged: ")
     if new_name == "":
-        newname = entry[name_pos]
-        
+        new_name = entry[name_pos]
+
     print(entry[country_pos])    
     new_country = input("Enter new country or press return to leave unchanged: ")
     if new_country == "":
         new_country = entry[country_pos]
 
+    print(entry[genre_pos])
     new_genre = input("Enter new genre or press return to leave unchanged: ")
     if new_genre == "":
         new_genre = entry[genre_pos]
