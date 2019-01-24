@@ -36,7 +36,7 @@ def edit_entry(which):
     which = int(which)
         
     entry = entries[which-1]
-    print("Enter the data for a new entry. Press <enter> to leave unchanged.")
+    print("Enter the new data for each field. Press <enter> to leave unchanged.")
     
     print(entry[name_pos])
     new_name = input("Enter new name of the band or press return to leave unchanged: ")
@@ -136,11 +136,15 @@ def main_loop():
         elif choice == 's':
             show_entries()
         elif choice == 'e':
-            which = input("Which item do you want to edit? ")
-            print("which is ", which)
-            edit_entry(which)
+            entry_nr = input("Which entry do you want to edit? (press ENTER to quit editing) ")
             os.system("clear")
-            print_status("Entry modified")
+            if str(entry_nr)=="":
+                print_status("No entry modified. Returning to main menu...")
+            else:
+                print("You chose to edit entry: #" + entry_nr)
+                edit_entry(entry_nr)
+                os.system("clear")
+                print_status("Entry #" + str(entry_nr) + " modified")
         else:
             os.system("clear")
             print_status("Invalid choice.")
