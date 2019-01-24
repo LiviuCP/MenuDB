@@ -12,30 +12,30 @@ country_pos = 1
 genre_pos = 2
 table_header = [ 'Name', 'Country', 'Genre' ]
 
-def right_menu_choice(which):
-    if not which.isdigit():
-        print_status("'" + which + "' is not a valid entry number!")
+def right_menu_choice(menu_choice):
+    if not menu_choice.isdigit():
+        print_status("'" + menu_choice + "' is not a valid entry number!")
         return False
-    which = int(which)
-    if which < 1 or which > len(entries):
-        print_status("'" + str(which) + "' is not a valid entry number!")
+    menu_choice = int(menu_choice)
+    if menu_choice < 1 or menu_choice > len(entries):
+        print_status("'" + str(menu_choice) + "' is not a valid entry number!")
         return False
     return True
     
-def delete_entry(which):
-    if not right_menu_choice(which):
+def delete_entry(entry_nr):
+    if not right_menu_choice(entry_nr):
         return
-    which = int(which)
+    entry_nr = int(entry_nr)
 
-    del entries[which-1]
-    print_status( "Deleted entry #" + str(which))
+    del entries[entry_nr-1]
+    print_status( "Deleted entry #" + str(entry_nr))
 
-def edit_entry(which):
-    if not right_menu_choice(which):
+def edit_entry(entry_nr):
+    if not right_menu_choice(entry_nr):
         return
-    which = int(which)
+    entry_nr = int(entry_nr)
         
-    entry = entries[which-1]
+    entry = entries[entry_nr-1]
     print("Enter the new data for each field. Press <enter> to leave unchanged.")
     
     print(entry[name_pos])
@@ -54,7 +54,7 @@ def edit_entry(which):
         new_genre = entry[genre_pos]
 
     entry = [new_name, new_country, new_genre]
-    entries[which-1] = entry
+    entries[entry_nr-1] = entry
 
   
 def save_database():
@@ -123,16 +123,15 @@ def main_loop():
             continue
         if choice == 'q':
             print( "Exiting...")
-            break     # jump out of while loop
+            break
         elif choice == 'n':
             create_entry()
             os.system("clear")
             print_status("Entry created")
         elif choice == 'd':
-            which = input("Which item do you want to delete? ")
-            print("which is ", which)
+            entry_nr = input("Which entry do you want to delete? ")
             os.system("clear")
-            delete_entry(which)
+            delete_entry(entry_nr)
         elif choice == 's':
             show_entries()
         elif choice == 'e':
