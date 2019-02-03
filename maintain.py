@@ -31,34 +31,44 @@ def delete_entry(entry_nr):
     print_status( "Deleted entry #" + str(entry_nr))
 
 def edit_entry(entry_nr):
+    is_modified = False
+
     if not right_menu_choice(entry_nr):
-        return
+        return False
     entry_nr = int(entry_nr)
-        
+
     entry = entries[entry_nr-1]
     print("Enter the new data for each field. Press <enter> to leave unchanged.")
-    
+
     print(entry[name_pos])
     new_name = input("Enter new name of the band or press return to leave unchanged: ")
     if new_name == "":
         new_name = entry[name_pos]
+    else:
+        is_modified = True
 
     print(entry[country_pos])    
     new_country = input("Enter new country or press return to leave unchanged: ")
     if new_country == "":
         new_country = entry[country_pos]
+    else:
+        if not is_modified:
+            is_modified = True
 
     print(entry[genre_pos])
     new_genre = input("Enter new genre or press return to leave unchanged: ")
     if new_genre == "":
         new_genre = entry[genre_pos]
+    else:
+        if not is_modified:
+            is_modified = True
 
     entry = [new_name, new_country, new_genre]
     entries[entry_nr-1] = entry
 
-  
-def save_database():
+    return is_modified
 
+def save_database():
     f = open("database.csv", 'w', newline='')
     for item in entries:
         csv.writer(f).writerow(item)
@@ -141,9 +151,12 @@ def main_loop():
                 print_status("No entry modified. Returning to main menu...")
             else:
                 print("You chose to edit entry: #" + entry_nr)
-                edit_entry(entry_nr)
+                entry_modified = edit_entry(entry_nr)
                 os.system("clear")
-                print_status("Entry #" + str(entry_nr) + " modified")
+                if entry_modified:
+                    print_status("Entry #" + str(entry_nr) + " modified")
+                else:
+                    print_status("No entry modified")
         else:
             os.system("clear")
             print_status("Invalid choice.")
