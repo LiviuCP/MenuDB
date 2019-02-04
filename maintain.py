@@ -82,7 +82,6 @@ def load_csv():
         f.close()
 
 def show_entries():
-    os.system("clear")
     show_entry(table_header, "")
     index = 1
     for entry in entries:
@@ -135,24 +134,26 @@ def main_loop():
             print( "Exiting...")
             break
         elif choice == 'n':
-            create_entry()
             os.system("clear")
+            create_entry()
             print_status("Entry created")
         elif choice == 'd':
-            entry_nr = input("Which entry do you want to delete? ")
             os.system("clear")
+            entry_nr = input("Which entry do you want to delete? ")
             delete_entry(entry_nr)
         elif choice == 's':
+            os.system("clear")
             show_entries()
         elif choice == 'e':
+            os.system("clear")
             entry_nr = input("Which entry do you want to edit? (press ENTER to quit editing) ")
             os.system("clear")
             if str(entry_nr)=="":
                 print_status("No entry modified. Returning to main menu...")
             else:
                 print("You chose to edit entry: #" + entry_nr)
-                entry_modified = edit_entry(entry_nr)
                 os.system("clear")
+                entry_modified = edit_entry(entry_nr)
                 if entry_modified:
                     print_status("Entry #" + str(entry_nr) + " modified")
                 else:
