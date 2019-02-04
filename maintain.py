@@ -41,27 +41,31 @@ def edit_entry(entry_nr):
     print("Enter the new data for each field. Press <enter> to leave unchanged.")
 
     print(entry[name_pos])
-    new_name = input("Enter new name of the band or press return to leave unchanged: ")
+    new_name = input("Enter new name of the band or press return to leave unchanged (! to quit): ")
     if new_name == "":
         new_name = entry[name_pos]
+    elif new_name == "!":
+        return False
     else:
         is_modified = True
 
     print(entry[country_pos])    
-    new_country = input("Enter new country or press return to leave unchanged: ")
+    new_country = input("Enter new country or press return to leave unchanged (! to quit): ")
     if new_country == "":
         new_country = entry[country_pos]
-    else:
-        if not is_modified:
-            is_modified = True
+    elif new_country == "!":
+        return False
+    elif not is_modified:
+        is_modified = True
 
     print(entry[genre_pos])
-    new_genre = input("Enter new genre or press return to leave unchanged: ")
+    new_genre = input("Enter new genre or press return to leave unchanged (! to quit): ")
     if new_genre == "":
         new_genre = entry[genre_pos]
-    else:
-        if not is_modified:
-            is_modified = True
+    elif new_genre == "!":
+        return False
+    elif not is_modified:
+        is_modified = True
 
     entry = [new_name, new_country, new_genre]
     entries[entry_nr-1] = entry
